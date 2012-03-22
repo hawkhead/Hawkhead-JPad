@@ -58,7 +58,27 @@ namespace JPad
             if (e.KeyChar == (char)Keys.Tab)
             {
                 e.Handled = true;
-                this.SelectedText += this.tabString;
+
+                if (this.SelectedText.Length > 0)
+                {
+
+                    String[] lines = this.SelectedText.Split('\n');
+
+                    this.SelectedText = "";
+                    string replacement = "";
+                    
+                    foreach (String line in lines)
+                    {
+                        replacement += this.tabString + line + "\n";
+                    }
+
+                    this.SelectedText = replacement.TrimEnd('\n');
+
+                }
+                else
+                {
+                    this.SelectedText += this.tabString;
+                }
             }
 
             base.OnKeyPress(e);
